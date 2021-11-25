@@ -51,8 +51,8 @@ var Game = (function () {
             assetLoader.addFont(name,path);
         }
 
-        this.loadAssets = function(){
-            assetLoader.load();
+        this.loadAssets = function(callBack){
+            assetLoader.load(callBack);
         }
 
         function drawSpashScreen(ctx, ratio) {

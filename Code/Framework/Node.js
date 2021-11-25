@@ -8,7 +8,10 @@ class Node {
     }
 
     update(dt) {
-        this.position = this.position.add(this.velocity.mul(dt));
+        this.updateChildren(dt);
+    }
+
+    updateChildren(dt){
         this.children.forEach(child => {
             child.update(dt);
         });
