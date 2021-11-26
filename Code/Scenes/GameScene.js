@@ -25,7 +25,9 @@ class GameScene extends Scene{
         this.gameOver = false;
         this.state = "Start";
 
-        this.music.play();
+        if(!this.music.isPlaying){
+            this.music.play();
+        }
         let assets = AssetLoader.getInstance();
         let backgroundX = SCREEN_WIDTH/2;
         let backgroundY = SCREEN_HEIGHT/2;
@@ -40,6 +42,9 @@ class GameScene extends Scene{
             this.infoLabel.visible = true;
             this.infoLabel.text = "GAMEOVER";
             this.addTimer(4,false, (timer)=>{
+                this.currentLevel = 1;
+                this.score = 0;
+                this.music.stop();
                 GAME.setScene("MainMenu");
             });
         };
@@ -101,8 +106,11 @@ class GameScene extends Scene{
 
             this.addTimer(4, false, (timer) => {
                 if(this.currentLevel > 2){
-                    GAME.setScene("MainMenu");
+                    
+                    this.music.stop();
                     this.currentLevel = 1;
+                    this.score = 0;
+                    GAME.setScene("MainMenu");
                 }else{
                     GAME.setScene("Game");
                 }
@@ -197,7 +205,7 @@ class GameScene extends Scene{
         this.waves = [];
         this.gameOver = false;
 
-        this.music.stop();
+        
         
     }
 
