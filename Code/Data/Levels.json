@@ -6,6 +6,84 @@
         "amount":5,
         "rate":0.5,
         "delay":5.0,
+        "startPosition": {"x":450,"y":30},
+        "sequence":[
+          {"cmd":"Move", "param":[10]}
+        ]
+      },
+      {
+        "enemy":"Enemy1",
+        "amount":10,
+        "rate":0.2,
+        "delay":2.0,
+        "startPosition": {"x":450,"y":210},
+        "sequence":[
+          {"cmd":"Move", "param":[10]}
+        ]
+      },
+      {
+        "enemy":"Enemy1",
+        "amount":10,
+        "rate":0.5,
+        "delay":8.0,
+        "startPosition": {"x":450,"y":10},
+        "sequence":[
+          {"cmd":"Move", "param":[1]},
+          {"cmd":"Turn", "param":[-30]},
+          {"cmd":"Move", "param":[10]}
+        ]
+      },
+      {
+        "enemy":"Enemy1",
+        "amount":10,
+        "rate":0.5,
+        "delay":8.0,
+        "startPosition": {"x":450,"y":230},
+        "sequence":[
+          {"cmd":"Move", "param":[1]},
+          {"cmd":"Turn", "param":[30]},
+          {"cmd":"Move", "param":[10]}
+        ]
+      },
+      {
+        "enemy":"Enemy2",
+        "amount":3,
+        "rate":1,
+        "delay":9,
+        "startPosition": {"x":450,"y":40},
+        "sequence":[
+          {"cmd":"Move", "param":[10]}
+        ]
+      },
+      {
+        "enemy":"Enemy2",
+        "amount":3,
+        "rate":1,
+        "delay":12,
+        "startPosition": {"x":450,"y":200},
+        "sequence":[
+          {"cmd":"Move", "param":[10]}
+        ]
+      },
+      {
+        "enemy":"Enemy1",
+        "amount":12,
+        "rate":0.5,
+        "delay":11,
+        "startPosition": {"x":450,"y":120},
+        "sequence":[
+          {"cmd":"Move", "param":[10]}
+        ]
+      }
+    ]
+  },
+  "level2": {
+    "waves": [
+      {
+        "enemy":"Enemy1",
+        "amount":5,
+        "rate":0.5,
+        "delay":5.0,
         "startPosition": {"x":450,"y":120},
         "sequence":[
           {"cmd":"Move", "param":[2]},
@@ -64,29 +142,69 @@
           {"cmd":"Turn", "param":[-90]},
           {"cmd":"Move", "param":[20]}
         ]
-      }
-    ]
-  },
-  "level2": {
-    "waves": [
+      },
       {
         "enemy":"Enemy1",
-        "amount":5,
+        "amount":10,
         "rate":0.5,
-        "delay":5.0,
-        "startPosition": {"x":450,"y":120},
+        "delay":8.0,
+        "startPosition": {"x":450,"y":20},
         "sequence":[
-          {"cmd":"Move", "param":[10]}
+          {"cmd":"Move", "param":[0.8]},
+          {"cmd":"Turn", "param":[-45]},
+          {"cmd":"Move", "param":[2]},
+          {"cmd":"Turn", "param":[45]},
+          {"cmd":"Move", "param":[20]}
         ]
       },
       {
         "enemy":"Enemy1",
         "amount":10,
-        "rate":0.2,
-        "delay":2.0,
-        "startPosition": {"x":450,"y":120},
+        "rate":0.5,
+        "delay":8.0,
+        "startPosition": {"x":450,"y":220},
         "sequence":[
-          {"cmd":"Move", "param":[10]}
+          {"cmd":"Move", "param":[0.8]},
+          {"cmd":"Turn", "param":[45]},
+          {"cmd":"Move", "param":[2]},
+          {"cmd":"Turn", "param":[-45]},
+          {"cmd":"Move", "param":[20]}
+        ]
+      },
+      {
+        "enemy":"Enemy2",
+        "amount":6,
+        "rate":0.8,
+        "delay":10.0,
+        "startPosition": {"x":450,"y":220},
+        "sequence":[
+          {"cmd":"Move", "param":[0.8]},
+          {"cmd":"Turn", "param":[10]},
+          {"cmd":"Move", "param":[0.8]},
+          {"cmd":"Turn", "param":[-20]},
+          {"cmd":"Move", "param":[0.8]},
+          {"cmd":"Turn", "param":[20]},
+          {"cmd":"Move", "param":[0.8]},
+          {"cmd":"Turn", "param":[-10]},
+          {"cmd":"Move", "param":[5]}
+        ]
+      },
+      {
+        "enemy":"Enemy2",
+        "amount":6,
+        "rate":0.8,
+        "delay":10.0,
+        "startPosition": {"x":450,"y":20},
+        "sequence":[
+          {"cmd":"Move", "param":[0.8]},
+          {"cmd":"Turn", "param":[-10]},
+          {"cmd":"Move", "param":[0.8]},
+          {"cmd":"Turn", "param":[20]},
+          {"cmd":"Move", "param":[0.8]},
+          {"cmd":"Turn", "param":[-20]},
+          {"cmd":"Move", "param":[0.8]},
+          {"cmd":"Turn", "param":[10]},
+          {"cmd":"Move", "param":[5]}
         ]
       }
     ]

@@ -11,7 +11,7 @@ class Player extends Node{
         this.addChild(collider);
 
         this.shootTimer = 0.0;
-        this.shootRate = 0.15;
+        this.shootRate = 0.10;
 
         this.gameOverCallback = null;
     }
