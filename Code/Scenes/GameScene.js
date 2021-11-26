@@ -6,16 +6,26 @@ class GameScene extends Scene{
         this.music.setLoop();
         this.music.setVolume(0.4);
 
-        this.player = new Player();
-        
-
+        this.player = null;
         this.waves = [];
+        this.gameOver = false;
+
+        this.state = "Start";
+
+        this.currentLevel = 1;
+        this.score = 0;
+        this.infoLabel  = null;
+        this.scoreLabel = null;
     }
 
     load(){
         super.load();
         
-        //this.music.play();
+        this.waves = [];
+        this.gameOver = false;
+        this.state = "Start";
+
+        this.music.play();
         let assets = AssetLoader.getInstance();
         let backgroundX = SCREEN_WIDTH/2;
         let backgroundY = SCREEN_HEIGHT/2;
@@ -23,12 +33,21 @@ class GameScene extends Scene{
         this.addNode(new ScrollingBackground(assets.getImage("background-layer-2"),LEFT,115,backgroundX, backgroundY));
         this.addNode(new ScrollingBackground(assets.getImage("background-layer-3"),LEFT,130,backgroundX, backgroundY));
 
-
-        this.player.position = new Vector2(50,SCREEN_HEIGHT/2);
+        this.player = new Player();
+        this.player.gameOverCallback = (player)=> {
+            player.isRemovable = true;
+            this.state = "end";
+            this.infoLabel.visible = true;
+            this.infoLabel.text = "GAMEOVER";
+            this.addTimer(4,false, (timer)=>{
+                GAME.setScene("MainMenu");
+            });
+        };
+        
+        this.player.position = new Vector2(0,SCREEN_HEIGHT/2);
         this.addNode(this.player, PLAYER_LAYER);
 
-        levelsData.level1.waves.forEach(waveJson => {
-            new MOVES["Turn"];
+        levelsData["level" + this.currentLevel].waves.forEach(waveJson => {
 
             let sequence = [];
 
@@ -50,20 +69,62 @@ class GameScene extends Scene{
             }
 
             this.waves.push(newWave);
-
+            
         });
-        console.log("load");
         
+        this.infoLabel = new Label(0,0,400,240,"LEVEL " + this.currentLevel, "pixeled", 32 ,{r:255,g:255,b:255},ALIGN_TYPE.CENTER)
+        this.addNode(this.infoLabel , GUI_LAYER);
+
+        this.scoreLabel = new Label(0,0,400,20,this.score, "pixeled", 10 ,{r:255,g:255,b:255},ALIGN_TYPE.CENTER)
+        this.addNode(this.scoreLabel , GUI_LAYER);
+        this.scoreLabel.visible = false;
+        
+
+        this.addTimer(1,false, (timer)=>{
+            this.state = "Game";
+            this.infoLabel.visible = false;
+            this.scoreLabel.visible = true;
+        });
     }
 
     update(dt){
-        this.updateWaves(dt);
-        this.updatePlayerControls(dt)
+
+        if (this.getNodes(Enemy).length == 0 && this.waves.length == 0 && !this.gameOver  && this.getNodes(Player).length > 0){
+            this.gameOver = true;
+            this.currentLevel++;
+            this.state == "End"
+            if(this.currentLevel > 2){
+                this.infoLabel.visible = true;
+                this.infoLabel.text = "WINNER";
+            }
+            
+
+            this.addTimer(4, false, (timer) => {
+                if(this.currentLevel > 2){
+                    GAME.setScene("MainMenu");
+                    this.currentLevel = 1;
+                }else{
+                    GAME.setScene("Game");
+                }
+                
+            });
+        }
+
         super.update(dt);
+        this.updateWaves(dt);
+        
+        if( this.state == "Start"){
+            this.player.move(RIGHT);
+        }else if (this.state == "Game") {
+            this.updatePlayerControls(dt)
+        }else if (this.state == "End") {
+            this.player.move(RIGHT);
+        }
+
     }
 
     updatePlayerControls(dt){
-
+        
         // Move player
         let direction = new Vector2();
         if( KEYBOARD.isKeyDown(KEY_LEFT) ){
@@ -124,10 +185,20 @@ class GameScene extends Scene{
     spawnEnemy(constructor,x,y,animation){
         let enemy = new constructor(x,y,animation);
         this.addNode(enemy,ENEMIES_LAYER);
+        enemy.deadCallback = () => {
+            this.score += enemy.scoring;
+            this.scoreLabel.text = this.score;
+        }
     }
 
     unload(){
+        super.unload();
+        //this.player = null;
+        this.waves = [];
+        this.gameOver = false;
+
         this.music.stop();
+        
     }
 
 }

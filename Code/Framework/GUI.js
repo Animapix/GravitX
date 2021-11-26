@@ -11,9 +11,9 @@ class Control extends Node{
     }
 
     update(dt){
-        super.update(ctx);
+        super.update(dt);
     }
-
+xwwxxx
     draw(ctx){  
         super.draw(ctx);
     }
@@ -28,6 +28,7 @@ class Panel extends Control {
 
 
     draw(ctx){
+        if (!this.visible){ return; }
         ctx.fillStyle =  'rgb(' + this.color.r + ',' + this.color.g + ',' + this.color.b + ')';
         ctx.rect(this.getGlobalPosition().x,this.getGlobalPosition().y,this.size.width,this.size.height);
         ctx.fill();
@@ -45,6 +46,7 @@ class Label extends Panel {
     }
 
     draw(ctx){
+        if (!this.visible){ return; }
         ctx.fillStyle =  'rgb(' + this.color.r + ',' + this.color.g + ',' + this.color.b + ')';
         ctx.textAlign = this.align ;
         ctx.font = this.fontSize +'px ' + this.font;
@@ -95,6 +97,7 @@ class Menu extends Panel {
     }
 
     draw(ctx){
+        if (!this.visible){ return; }
         this.drawChildren(ctx);
     }
 

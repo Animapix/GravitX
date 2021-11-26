@@ -1,6 +1,7 @@
 class Player extends Node{
     constructor(x,y) {
         super(x,y);
+        this.lifes = 3;
         this.velocity = new Vector2();
         this.speed = 200;
         this.sprite = new Sprite(AssetLoader.getInstance().getImage("ship"),0,0);
@@ -11,6 +12,8 @@ class Player extends Node{
 
         this.shootTimer = 0.0;
         this.shootRate = 0.15;
+
+        this.gameOverCallback = null;
     }
 
     move(direction){
@@ -49,7 +52,10 @@ class Player extends Node{
     }
 
     takeDamages(amount){
-        console.log("Player take " + amount + " damages");
+        this.lifes--;
+        if(this.lifes <= 0){
+            this.gameOverCallback(this);
+        }
     }
 
 

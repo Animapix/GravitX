@@ -3,9 +3,7 @@ class Bullet extends Node{
         super(x,y);
         this.speed = speed;
         this.sprite = sprite;
-        
-        //this.sprite.setSpriteSheet(5, 7);
-        //this.sprite.currentFrame = 11
+        this.damages = 20;
 
         this.sprite.rotation = Math.PI/2;
         this.addChild(this.sprite);
@@ -24,8 +22,8 @@ class Bullet extends Node{
         }
     }
 
-    onCollision(other){
-        this.parent.isRemovable = true;
-        other.parent.takeDamages(20);
+    onCollision = (other) => {
+        this.isRemovable = true;
+        other.parent.takeDamages(this.damages);
     }
 }

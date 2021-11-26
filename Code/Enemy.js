@@ -14,6 +14,8 @@ class Enemy extends Node {
         this.animationPlayer.target = this;
         this.animationPlayer.play();
         this.rotation = Math.PI;
+        this.scoring = 255;
+        this.deadCallback = null;
     }
 
     update(deltaTime){
@@ -29,6 +31,7 @@ class Enemy extends Node {
         if (this.life <= 0){
             this.life = 0;
             this.isRemovable = true;
+            this.deadCallback();
         }
     }
 
@@ -48,6 +51,42 @@ class Enemy1 extends Enemy{
     }
 }
 
+class Enemy2 extends Enemy{
+    constructor(x,y, animation) {
+        let sprt = new Sprite(AssetLoader.getInstance().getImage("enemy2"));
+        super(x,y,animation,sprt);
+        this.life = 50;
+        this.scoring = 500;
+        this.shootTimer = 0.0;
+        this.shootRate = 1;
+    }
+
+    update(deltaTime){
+        super.update(deltaTime);
+        if(this.shootTimer > 0){
+            this.shootTimer -= deltaTime;
+        }else{
+            this.shoot();
+        }
+    }
+
+    shoot(){
+        if (this.shootTimer <= 0){
+            let bulletSprite =  new Sprite(AssetLoader.getInstance().getImage("bullet2"));
+            
+            let angle = degrees_to_radians(rnd(200,160));
+            let x = Math.cos(angle);
+            let y = Math.sin(angle);
+            let direction = new Vector2(x,y);
+            let bullet = new Bullet(bulletSprite,direction,this.position.x,this.position.y,150,PLAYERS_FLAG);
+            GAME.addNodeToCurrentScene(bullet,BULLETS_LAYER)
+            this.shootTimer = this.shootRate;
+        }
+    }
+
+}
+
 const ENEMIES = {
-    "Enemy1": Enemy1
+    "Enemy1": Enemy1,
+    "Enemy2": Enemy2
 }

@@ -22,6 +22,7 @@ class Collider extends Node{
     }
 
     draw(context) {
+        return;
         context.strokeStyle = this.color;
         context.beginPath();
         context.arc(this.getGlobalPosition().x, this.getGlobalPosition().y, this.radius, 0, 2 * Math.PI, true);

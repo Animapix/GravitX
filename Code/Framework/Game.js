@@ -31,6 +31,18 @@ var Game = (function () {
             scenes[sceneName] = scene;
         }
 
+        this.addNodeToCurrentScene = function(node, layer){
+            if(currentScene != null){
+                currentScene.addNode(node,layer);
+            }
+        }
+
+        this.addTimerToCurrentScene = function(duration, duration, callBack){
+            if(currentScene != null){
+                currentScene.addTimer(duration,duration,callBack);
+            }
+        }
+
         this.setScene = function(sceneName){
             if(currentScene != null){
                 currentScene.unload();
